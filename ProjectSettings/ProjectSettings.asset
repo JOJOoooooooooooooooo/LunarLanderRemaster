@@ -4,7 +4,7 @@
 PlayerSettings:
   m_ObjectHideFlags: 0
   serializedVersion: 28
-  productGUID: 4aa109322461f1c41a2aac595b6e1387
+  productGUID: 14ddb674665e58f44b25b4f83733a95c
   AndroidProfiler: 0
   AndroidFilterTouchesWhenObscured: 0
   AndroidEnableSustainedPerformanceMode: 0
@@ -13,7 +13,7 @@ PlayerSettings:
   useOnDemandResources: 0
   accelerometerFrequency: 60
   companyName: DefaultCompany
-  productName: LunarLanderRemasterGroupAsg
+  productName: LunarLanders
   defaultCursor: {fileID: 0}
   cursorHotspot: {x: 0, y: 0}
   m_SplashScreenBackgroundColor: {r: 0.13725491, g: 0.12156863, b: 0.1254902, a: 1}
@@ -846,14 +846,14 @@ PlayerSettings:
   editorAssembliesCompatibilityLevel: 1
   m_RenderingPath: 1
   m_MobileRenderingPath: 1
-  metroPackageName: LunarLanderRemasterGroupAsg
+  metroPackageName: LunarLanders
   metroPackageVersion: 
   metroCertificatePath: 
   metroCertificatePassword: 
   metroCertificateSubject: 
   metroCertificateIssuer: 
   metroCertificateNotAfter: 0000000000000000
-  metroApplicationDescription: LunarLanderRemasterGroupAsg
+  metroApplicationDescription: LunarLanders
   wsaImages: {}
   metroTileShortName: 
   metroTileShowName: 0
@@ -924,11 +924,11 @@ PlayerSettings:
   captureStartupLogs: {}
   activeInputHandler: 1
   windowsGamepadBackendHint: 0
-  cloudProjectId: f6afaf36-ae24-4fdd-8978-287a04005ebd
+  cloudProjectId: e879e899-0e70-4398-9d32-d0f6d22b4d0f
   framebufferDepthMemorylessMode: 0
   qualitySettingsNames: []
-  projectName: LunarLanderRemasterGroupAsg
-  organizationId: assiduousjojo
+  projectName: LunarLanders
+  organizationId: obasekigabriel700
   cloudEnabled: 0
   legacyClampBlendShapeWeights: 0
   hmiLoadingImage: {fileID: 0}
