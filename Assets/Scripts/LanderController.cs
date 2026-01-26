@@ -37,6 +37,14 @@ public class LanderController : MonoBehaviour
         Rb = GetComponent<Rigidbody>();
     }
 
+    public void OnLanded()
+    {
+        if (state != LanderState.Flying)
+            return;
+
+        state = LanderState.Landed;
+        Debug.Log("LANDED");
+    }
 
     // Handle rotation input for the lander
     private void HandleRotationInput()
@@ -98,25 +106,23 @@ public class LanderController : MonoBehaviour
 
 
     // Handle collision events
+    //Uses LandingZone script to detect successful landings
+    //Prototype Script detection
+    //may or may not change in future versions to include more complex collision detection
     private void OnCollisionEnter(Collision collision)
     {
-
-        // Only process collisions if the lander is flying
         if (state != LanderState.Flying)
             return;
 
-        // Check if collided with ground
-        if (collision.gameObject.CompareTag("Ground"))
+        // If the collision is NOT the LandZone, it's a crash
+        if (!collision.collider.CompareTag("LandZone"))
         {
-            // Simple crash logic
-            // For now, treat all ground as crash
-            //Will change later to differentiate between landing and crashing
             state = LanderState.Crashed;
             Debug.Log("CRASHED");
         }
     }
 
-    //!
+    
     void Start()
     {
 
