@@ -16,9 +16,13 @@ public class LanderController : MonoBehaviour
     [SerializeField] private float thrustSmoothness = 0.2f;
     [SerializeField] private GameObject ThrustFire;
 
+    [SerializeField] private AudioSource AudioSource;
+
     private Rigidbody Rb;
 
     private bool isThrusting = false;
+
+
 
     //Set state for the Lander
     private enum LanderState
@@ -74,6 +78,7 @@ public class LanderController : MonoBehaviour
             {
                 // enable the thrustfire fx
                 ThrustFire.SetActive(true);
+                AudioSource.Play();
                 isThrusting = true;
 
               
@@ -98,6 +103,7 @@ public class LanderController : MonoBehaviour
             {
                 // disable the thrustfire fx
                 ThrustFire.SetActive(false);
+                AudioSource.Stop();
                 isThrusting = false;
             }
            
