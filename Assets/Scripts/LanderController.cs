@@ -1,8 +1,8 @@
 using UnityEngine;
 
-//Gabriel Obaseki
+//Gabriel Obaseki and Jonathan Ghattas
 //LanderController Prototype Script
-//Version 1.0
+//Version 1.01
 
 public class LanderController : MonoBehaviour
 {
@@ -12,8 +12,13 @@ public class LanderController : MonoBehaviour
     [Header("Movement Settings")]
     [SerializeField] private float thrustPower = 10f;
     [SerializeField] private float rotationSpeed = 100f;
+    [SerializeField] private Transform thrustPoint;
+    [SerializeField] private float thrustSmoothness = 0.2f;
+    [SerializeField] private GameObject ThrustFire;
 
     private Rigidbody Rb;
+
+    private bool isThrusting = false;
 
     //Set state for the Lander
     private enum LanderState
@@ -56,8 +61,38 @@ public class LanderController : MonoBehaviour
         //if Space is pressed, apply upward thrust
         if (Input.GetKey(KeyCode.Space))
         {
-            // Apply force in the upward direction of the lander
-            Rb.AddForce(transform.up * thrustPower, ForceMode.Force);
+
+            if (!isThrusting)
+            {
+                // enable the thrustfire fx
+                ThrustFire.SetActive(true);
+                isThrusting = true;
+
+              
+            }
+            // Direction the engine is pointing
+            Vector3 thrustDirection = -thrustPoint.up;
+
+            // Target velocity in the direction the engine is pointing
+            Vector3 targetVelocity = -thrustDirection * thrustPower;
+
+            // Smoothly move toward that velocity
+            Rb.linearVelocity = Vector3.Lerp(
+                Rb.linearVelocity,
+                targetVelocity,
+                thrustSmoothness
+            );
+
+        }
+        else
+        {
+            if (isThrusting)
+            {
+                // disable the thrustfire fx
+                ThrustFire.SetActive(false);
+                isThrusting = false;
+            }
+           
         }
     }
 
