@@ -2,13 +2,14 @@ using UnityEngine;
 
 //Gabriel Obaseki and Jonathan Ghattas
 //LanderController Prototype Script
-//Version 1.01
+//Version 1.05
 
 public class LanderController : MonoBehaviour
 {
     // Start is called once before the first execution of Update after the MonoBehaviour is created
 
-
+    //These serialized fields can be adjusted in the Unity Inspector
+    //This is the movement settings for the lander
     [Header("Movement Settings")]
     [SerializeField] private float thrustPower = 10f;
     [SerializeField] private float rotationSpeed = 100f;
@@ -16,13 +17,22 @@ public class LanderController : MonoBehaviour
     [SerializeField] private float thrustSmoothness = 0.2f;
     [SerializeField] private GameObject ThrustFire;
 
+
+    //These serialized fields can be adjusted in the Unity Inspector
+    //This is the fuel settings for the lander
+    [Header("Fuel Settings")]
+    [SerializeField] private float maxFuel = 100f;
+    [SerializeField] private float fuelConsumptionRate = 10f;
+
+    //Current fuel level
+    private float currentFuel;
+
+    //Audio Source for thrust sound effect
     [SerializeField] private AudioSource AudioSource;
 
+
     private Rigidbody Rb;
-
     private bool isThrusting = false;
-
-
 
     //Set state for the Lander
     private enum LanderState
@@ -71,43 +81,38 @@ public class LanderController : MonoBehaviour
     private void HandleThrustInput()
     {
         //if Space is pressed, apply upward thrust
-        if (Input.GetKey(KeyCode.Space))
+        if (Input.GetKey(KeyCode.Space) && currentFuel > 0f)
         {
+            // Consume fuel
+            currentFuel -= fuelConsumptionRate * Time.deltaTime;
+            currentFuel = Mathf.Max(currentFuel, 0f);
 
             if (!isThrusting)
             {
-                // enable the thrustfire vfx
                 ThrustFire.SetActive(true);
                 AudioSource.Play();
                 isThrusting = true;
-
-              
             }
-            // Direction the engine is pointing
-            Vector3 thrustDirection = -thrustPoint.up;
 
-            // Target velocity in the direction the engine is pointing
+            Vector3 thrustDirection = -thrustPoint.up;
             Vector3 targetVelocity = -thrustDirection * thrustPower;
 
-            // Smoothly move toward that velocity
             Rb.linearVelocity = Vector3.Lerp(
                 Rb.linearVelocity,
                 targetVelocity,
                 thrustSmoothness
             );
-
         }
         else
         {
             if (isThrusting)
             {
-                // disable the thrustfire fx
                 ThrustFire.SetActive(false);
                 AudioSource.Stop();
                 isThrusting = false;
             }
-           
         }
+      
     }
 
 
@@ -117,12 +122,15 @@ public class LanderController : MonoBehaviour
     //may or may not change in future versions to include more complex collision detection
     private void OnCollisionEnter(Collision collision)
     {
+        //if the lander is NOT flying, ignore collisions
+       
         if (state != LanderState.Flying)
             return;
 
         // If the collision is NOT the LandZone, it's a crash
         if (!collision.collider.CompareTag("LandZone"))
         {
+           
             state = LanderState.Crashed;
             Debug.Log("CRASHED");
         }
@@ -131,7 +139,7 @@ public class LanderController : MonoBehaviour
     
     void Start()
     {
-
+        currentFuel = maxFuel;
     }
 
     // Update is called once per frame since it is a MonoBehaviour
@@ -140,6 +148,7 @@ public class LanderController : MonoBehaviour
     {
         // Only process input if the lander is flying
         if (state != LanderState.Flying)
+            
             return;
 
         //Calls HandleRotationInput and HandleThrustInput methods
