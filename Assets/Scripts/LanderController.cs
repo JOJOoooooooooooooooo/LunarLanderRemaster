@@ -2,7 +2,7 @@ using UnityEngine;
 
 //Gabriel Obaseki and Jonathan Ghattas
 //LanderController Prototype Script
-//Version 1.051
+//Version 1.052
 
 public class LanderController : MonoBehaviour
 {
@@ -24,6 +24,7 @@ public class LanderController : MonoBehaviour
     [SerializeField] private float maxFuel = 100f;
     [SerializeField] private float fuelConsumptionRate = 10f;
     [SerializeField] private UnityEngine.UI.Slider fuelBar;
+
 
     //Current fuel level
     private float currentFuel;
@@ -89,7 +90,21 @@ public class LanderController : MonoBehaviour
             currentFuel = Mathf.Max(currentFuel, 0f);
             fuelBar.value = currentFuel;
 
+           
+          
 
+            if (currentFuel <= 60f)
+            {
+                fuelBar.fillRect.GetComponent<UnityEngine.UI.Image>().color = Color.yellow;
+            }
+
+            if (currentFuel <=30f)
+            {
+                
+                fuelBar.fillRect.GetComponent<UnityEngine.UI.Image>().color = Color.red;
+            }
+
+            // Activate thrust effects
             if (!isThrusting)
             {
                 ThrustFire.SetActive(true);
@@ -142,6 +157,8 @@ public class LanderController : MonoBehaviour
     
     void Start()
     {
+        fuelBar.fillRect.GetComponent<UnityEngine.UI.Image>().color = Color.green;
+
         currentFuel = maxFuel;
         fuelBar.maxValue = maxFuel;
         fuelBar.value = maxFuel;
