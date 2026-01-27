@@ -961,7 +961,7 @@ MonoBehaviour:
   thrustPoint: {fileID: 949447805}
   thrustSmoothness: 0.2
   ThrustFire: {fileID: 421306274}
-  AudioSource: {fileID: 0}
+  AudioSource: {fileID: 1802784345}
 --- !u!82 &1802784345
 AudioSource:
   m_ObjectHideFlags: 0

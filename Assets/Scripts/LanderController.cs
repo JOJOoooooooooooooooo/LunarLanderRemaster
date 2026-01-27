@@ -76,7 +76,7 @@ public class LanderController : MonoBehaviour
 
             if (!isThrusting)
             {
-                // enable the thrustfire fx
+                // enable the thrustfire vfx
                 ThrustFire.SetActive(true);
                 AudioSource.Play();
                 isThrusting = true;

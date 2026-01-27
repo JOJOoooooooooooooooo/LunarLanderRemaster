@@ -8,6 +8,15 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/Scenes/SampleScene.unity
     guid: 99c9720ab356a0642a771bea13969a05
+  - enabled: 1
+    path: Assets/Scenes/MainMenu.unity
+    guid: 7eb975c053fc4804a81960e1db9756d3
+  - enabled: 1
+    path: Assets/Scenes/JonathansScene.unity
+    guid: baf54d8cfa2a7fb4f8af717a0d286d0f
+  - enabled: 1
+    path: Assets/Scenes/SettingsScene.unity
+    guid: 2fc2fae787b3eeb40b1acca7979b0c5e
   m_configObjects:
     com.unity.dt.app-ui: {fileID: 11400000, guid: 1b1c20d82303e4b5781c3ef50ac1449f, type: 2}
     com.unity.input.settings.actions: {fileID: -944628639613478452, guid: 052faaac586de48259a63d0c4782560b, type: 3}
