@@ -3,7 +3,7 @@ using UnityEngine.SceneManagement;
 
 //Gabriel Obaseki and Jonathan Ghattas
 //LanderController Prototype Script
-//Version 1.052
+//Version 1.055
 
 public class LanderController : MonoBehaviour
 {
@@ -33,6 +33,7 @@ public class LanderController : MonoBehaviour
     //Audio Source for thrust sound effect
     [SerializeField] private AudioSource AudioSource;
     [SerializeField] private AudioSource BeepAudio;
+    [SerializeField] private AudioSource BGAudio;
 
 
     private Rigidbody Rb;
@@ -102,7 +103,7 @@ public class LanderController : MonoBehaviour
 
             if (currentFuel <=30f)
             {
-                
+                BeepAudio.Play();
                 fuelBar.fillRect.GetComponent<UnityEngine.UI.Image>().color = Color.red;
             }
 
@@ -143,9 +144,13 @@ public class LanderController : MonoBehaviour
     private void OnCollisionEnter(Collision collision)
     {
         //if the lander is NOT flying, ignore collisions
-       
+
         if (state != LanderState.Flying)
+        {
+            BeepAudio.Stop();
+            BGAudio.Stop();
             return;
+        }
 
         // If the collision is NOT the LandZone, it's a crash
         if (!collision.collider.CompareTag("LandZone"))
@@ -153,6 +158,7 @@ public class LanderController : MonoBehaviour
 
             state = LanderState.Crashed;
             Debug.Log("CRASHED");
+            BGAudio.Stop();
             // Load Game Over scene
             SceneManager.LoadScene("GameOver");
 
@@ -162,6 +168,7 @@ public class LanderController : MonoBehaviour
     
     void Start()
     {
+        BGAudio.Play();
         fuelBar.fillRect.GetComponent<UnityEngine.UI.Image>().color = Color.green;
 
         currentFuel = maxFuel;
