@@ -32,6 +32,7 @@ public class LanderController : MonoBehaviour
 
     //Audio Source for thrust sound effect
     [SerializeField] private AudioSource AudioSource;
+    [SerializeField] private AudioSource BeepAudio;
 
 
     private Rigidbody Rb;
