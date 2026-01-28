@@ -1,4 +1,5 @@
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 //Gabriel Obaseki and Jonathan Ghattas
 //LanderController Prototype Script
@@ -148,9 +149,12 @@ public class LanderController : MonoBehaviour
         // If the collision is NOT the LandZone, it's a crash
         if (!collision.collider.CompareTag("LandZone"))
         {
-           
+
             state = LanderState.Crashed;
             Debug.Log("CRASHED");
+            // Load Game Over scene
+            SceneManager.LoadScene("GameOver");
+
         }
     }
 
