@@ -6,7 +6,7 @@ public class GameOverScript : MonoBehaviour
    
     public void PlayGame()
     {
-        SceneManager.LoadScene("JonathansScene");
+        SceneManager.LoadScene("LevelOne");
     }
 
 

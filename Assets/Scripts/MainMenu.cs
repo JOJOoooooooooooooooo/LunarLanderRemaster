@@ -6,7 +6,7 @@ public class MainMenu : MonoBehaviour
 
     public void PlayGame()
     {
-        SceneManager.LoadScene("JonathansScene");
+        SceneManager.LoadScene("LevelOne");
     }
 
     public void GameSettings()

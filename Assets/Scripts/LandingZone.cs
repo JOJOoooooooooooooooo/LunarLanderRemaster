@@ -1,4 +1,5 @@
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 //Gabriel Obaseki and Jonathan Ghattas
 //LandingZone Prototype Script
@@ -22,36 +23,43 @@ public class LandingZone : MonoBehaviour
 
     private void OnTriggerEnter(Collider other)
     {
-        //detect if the lander has hit  ground
-        if (other.CompareTag("Ground"))
-        {
-            lander.OnLanded();
-            // load scene "next level" after 2 seconds
-        }
+        // Only react once
+        if (lander == null)
+            return;
 
-        //detect if the lander has hit the land zone
-        if (other.CompareTag("LandZone"))
+        if (
+            other.CompareTag("Ground") ||
+            other.CompareTag("LandZone") ||
+            other.CompareTag("LandZoneX2") ||
+            other.CompareTag("LandZoneX5")
+        )
         {
             lander.OnLanded();
-            // add point to score manager
-            ScoreManager.Instance.AddPoint();
-            Debug.Log("+1 score");
-        }
 
-        if (other.CompareTag("LandZoneX2"))
-        {
-            lander.OnLanded();
-            // add point to score manager
-            ScoreManager.Instance.AddPointX2();
-            Debug.Log("+1 score");
-        }
+            // Score handling
+            if (other.CompareTag("LandZone"))
+                ScoreManager.Instance.AddPoint();
+            else if (other.CompareTag("LandZoneX2"))
+                ScoreManager.Instance.AddPointX2();
+            else if (other.CompareTag("LandZoneX5"))
+                ScoreManager.Instance.AddPointX5();
 
-        if (other.CompareTag("LandZoneX5"))
-        {
-            lander.OnLanded();
-            // add point to score manager
-            ScoreManager.Instance.AddPointX5();
-            Debug.Log("+1 score");
+            LoadNextScene();
         }
     }
+
+    private void LoadNextScene()
+    {
+        Scene currentScene = SceneManager.GetActiveScene();
+
+        if (currentScene.name == "LevelThree")
+        {
+            SceneManager.LoadScene("MainMenu");
+        }
+        else
+        {
+            SceneManager.LoadScene(currentScene.buildIndex + 1);
+        }
+    }
+
 }
